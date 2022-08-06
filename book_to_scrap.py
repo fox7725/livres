@@ -18,16 +18,16 @@ entete = ["product_page_url", "universal_product_code (UPC)", "title", "price_in
 
 #On récupère les informations demandées dans des variables
     #récupération de l'url de la page
-product_page_url = url
+product_page_url = url_livre
     #récupération du titre du livre (seul élément en <h1>
 title = soup_livre.h1.string
     #Pour récupérer les éléments en bas de page qui sont sous forme de
     #tableau, on créé deux listes avec les <th> et les <td> et on fait un dictionnaire
 tableau = soup_livre.find("table", class_="table-striped")
-nom = tableau.find_all("th")
+nom_tableau = tableau.find_all("th")
 valeur = tableau.find_all("td")
 liste_noms = []
-for name in nom:
+for name in nom_tableau:
    liste_noms.append(name.string)
 liste_valeurs = []
 for values in valeur:
