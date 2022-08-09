@@ -107,7 +107,10 @@ for category_url in liens:
         # pour la description, on récupère le texte enfant de la classe product_page
         # on trasnforme la liste obtenue en variable simple et on récupère le txt
         product_description_l = soup_livre.select(".product_page > p")
-        product_description.append(product_description_l[0].text)
+        if product_description_l:
+            product_description.append(product_description_l[0].text.encode("utf8", errors="replace"))
+        else:
+            product_description.append(" ")
         # Pour récupérer la catégorie qui se trouve dans le breadcrumbs qu'on va
         # transformer en liste et dont on va récupérer l'avant dernière valeur
         # on ne récupère que le texte
