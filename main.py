@@ -38,14 +38,13 @@ noms = []
 for nom_cat in categories:
     nom_cat_texte = nom_cat.text.strip()
     noms.append(nom_cat_texte)
-
-#On créé un dictionnaire avec les noms et les liens
-dictionnaire_categories = dict(zip(noms, liens))
+    # Dans le dossiers images on créé des sous dossiers pour classer les images téléchargées
+    os.makedirs(nom_cat_texte, exist_ok=True)
 
 #On créé une boucle pour récupérer les liens des livres de chaque page de chaque catégorie
-for category_url in url_categories:
-    url_page = category_url + "index.html"
-    page_page = requests.get(url_page)
+for category_url in liens:
+    #url_page = category_url + "index.html"
+    page_page = requests.get(category_url)
     soup_page = BeautifulSoup(page_page.content, 'html.parser')
     liste_livres = soup_page.select(".image_container > a")
     liste_livres_url = []
@@ -158,7 +157,7 @@ for category_url in url_categories:
                 category, \
                 review_rating, \
                 image_url) :
-                titrecsv2 = titrecsv.replace(",", " ")
+                titrecsv2 = titlecsv.replace(",", " ")
                 ligne = [product_page_urlcsv, \
                 universal_product_codecsv, \
                 titrecsv2, \
@@ -175,7 +174,7 @@ for category_url in url_categories:
 
                 #On télécharge et renomme les images dans le répertoire voulu
                 lien_image = image_urlcsv
-                nom_image = "images/"+titrecsv2.replace("https://books.toscrape.com/catalogue/", "")
+                nom_image = "images/"+product_page_urlcsv.replace("https://books.toscrape.com/catalogue/", "")
                 nom_image = nom_image.replace("/index.html", ".jpg")
                 urllib.request.urlretrieve(lien_image, nom_image)
 
