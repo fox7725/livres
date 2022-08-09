@@ -139,40 +139,40 @@ for category_url in liens:
 
         # On rempli le fichier ligne par ligne avec une boucle,
         # pour éviter les erreurs CSV on remplace les "," des titres par " "
-        for product_page_urlcsv, \
-            universal_product_codecsv, \
-            titlecsv, \
-            price_including_taxcsv, \
-            price_excluding_taxcsv, \
-            number_availablecsv, \
-            product_descriptioncsv, \
-            categorycsv, \
-            review_ratingcsv, \
-            image_urlcsv \
-            in zip(product_page_url, \
-            universal_product_code, \
-            title, \
-            price_including_tax, \
-            price_excluding_tax, \
-            number_available, \
-            product_description, \
-            category, \
-            review_rating, \
-            image_url) :
-            titrecsv2 = titlecsv.replace(",", " ")
-            ligne = [product_page_urlcsv, \
-            universal_product_codecsv, \
-            titrecsv2, \
-            price_including_taxcsv, \
-            price_excluding_taxcsv, \
-            number_availablecsv, \
-            product_descriptioncsv, \
-            categorycsv, \
-            review_ratingcsv, \
-            image_urlcsv]
-            with open("csv/livres.csv", "a") as fichier_csv:
-                writer = csv.writer(fichier_csv, delimiter=",")
-                writer.writerow(ligne)
+    for product_page_urlcsv, \
+        universal_product_codecsv, \
+        titlecsv, \
+        price_including_taxcsv, \
+        price_excluding_taxcsv, \
+        number_availablecsv, \
+        product_descriptioncsv, \
+        categorycsv, \
+        review_ratingcsv, \
+        image_urlcsv \
+        in zip(product_page_url, \
+        universal_product_code, \
+        title, \
+        price_including_tax, \
+        price_excluding_tax, \
+        number_available, \
+        product_description, \
+        category, \
+        review_rating, \
+        image_url) :
+        titrecsv2 = titlecsv.replace(",", " ")
+        ligne = [product_page_urlcsv, \
+        universal_product_codecsv, \
+        titrecsv2, \
+        price_including_taxcsv, \
+        price_excluding_taxcsv, \
+        number_availablecsv, \
+        product_descriptioncsv, \
+        categorycsv, \
+        review_ratingcsv, \
+        image_urlcsv]
+        with open("csv/livres.csv", "a") as fichier_csv:
+            writer = csv.writer(fichier_csv, delimiter=",")
+            writer.writerow(ligne)
 
             #On télécharge et renomme les images dans le répertoire voulu
             lien_image = image_urlcsv
