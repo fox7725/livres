@@ -39,7 +39,8 @@ for nom_cat in categories:
     nom_cat_texte = nom_cat.text.strip()
     noms.append(nom_cat_texte)
     # Dans le dossiers images on créé des sous dossiers pour classer les images téléchargées
-    os.makedirs(nom_cat_texte, exist_ok=True)
+    sous_dossier = "images/" + nom_cat_texte
+    os.makedirs(sous_dossier, exist_ok=True)
 
 #On créé une boucle pour récupérer les liens des livres de chaque page de chaque catégorie
 for category_url in liens:
@@ -174,7 +175,7 @@ for category_url in liens:
 
                 #On télécharge et renomme les images dans le répertoire voulu
                 lien_image = image_urlcsv
-                nom_image = "images/"+product_page_urlcsv.replace("https://books.toscrape.com/catalogue/", "")
+                nom_image = "images/"+product_page_urlcsv.replace("https://books.toscrape.com/catalogue", categorycsv)
                 nom_image = nom_image.replace("/index.html", ".jpg")
                 urllib.request.urlretrieve(lien_image, nom_image)
 
