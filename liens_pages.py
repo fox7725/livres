@@ -14,6 +14,7 @@ for livre in liste_livres:
 
 #On vérifie s'i y a un bouton "next"
 next_page = soup_page.find("li", class_="next")
+
 #On créé une boucle pour les pages suivante
 while next_page != None:
     next_page_url = category_url + next_page.find("a").get("href")
