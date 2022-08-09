@@ -58,7 +58,6 @@ for category_url in liens:
     # On créé une boucle pour les pages suivante
     while next_page != None:
         next_page_url = category_url.rsplit("/", 1)[0] + "/" + next_page.find("a").get("href")
-        print(next_page_url)
         page_page = requests.get(next_page_url)
         soup_page = BeautifulSoup(page_page.content, 'html.parser')
         liste_livres = soup_page.select(".image_container > a")
