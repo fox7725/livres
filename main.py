@@ -178,3 +178,6 @@ for category_url in url_categories:
                 nom_image = "images/"+titrecsv2.replace("https://books.toscrape.com/catalogue/", "")
                 nom_image = nom_image.replace("/index.html", ".jpg")
                 urllib.request.urlretrieve(lien_image, nom_image)
+
+#une petite phrase gentille pour indiquer que le travail est terminé
+print("Je sais que c'était long, mais il y avait beaucoup de pages à visiter. Vous pouvez donc maintenant consulter les dossiers csv et images")
