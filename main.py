@@ -44,8 +44,13 @@ for nom_cat in categories:
     os.makedirs(sous_dossier, exist_ok=True)
 print("J'ai compté "+str(len(categories))+" catégories,j'ai donc créé un dossier par catégorie pour y ordonner les images.")
 
+#On créé un dictionnaire avec les catégories et un compteur pour faire le suivi de l'avancement du programme
+suivi = dict(zip(liens, noms))
+compteur = len(categories)
 #On créé une boucle pour récupérer les liens des livres de chaque page de chaque catégorie
 for category_url in liens:
+    compteur -= 1
+    print("J'attaque les livres de la catégorie "+suivi[category_url]+". Il restera encore "+str(compteur)+"catégories à traiter.")
     page_page = requests.get(category_url)
     soup_page = BeautifulSoup(page_page.content, 'html.parser')
     liste_livres = soup_page.select(".image_container > a")
