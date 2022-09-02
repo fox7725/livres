@@ -46,13 +46,15 @@ print("J'ai compté "+str(len(categories))+" catégories, j'ai donc créé un do
 
 #On de mande s'il s'agit d'une démo
 demo = " "
-while demo!="oui" or demo!="non" :
-    demo = input("Voulez vous juste faire un test rapide ? ('oui' ou 'non')")
-    if demo!="oui" or demo!="non" :
+while (demo != "oui") and (demo != "non") :
+    demo = input("Voulez vous juste faire un test rapide ? ('oui' ou 'non') ")
+    oui = "oui"
+    non = "non"
+    if (demo != oui) and (demo != non) :
         print("la réponse '"+str(demo)+"' n'est pas valable ! Merci de répondre par 'oui' ou par 'non'.")
-    elif demo=="oui" :
+    elif (demo == oui) :
         print("Parfait, je ne vais traiter que les trois première catégories")
-    elif demo=="non" :
+    elif (demo == non) :
         print("Je vais donc réaliser le travail en entier et parcourir les "+str(len(categories))+" catégories.")
 
 #On créé un dictionnaire avec les catégories et un compteur pour faire le suivi de l'avancement du programme
