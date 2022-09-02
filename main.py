@@ -4,6 +4,11 @@ import requests
 from bs4 import BeautifulSoup
 import urllib.request
 
+#On créé les différentes fonctions dont on va avoir besoin
+#def tableCategories (url_categories) :
+
+
+
 #on test l'existence des répertoires pour l'enregistrement du CSV et des images sinon les créer,
 #grace à "exist_ok=True", l'erreur est ignorée si les répertoires existent
 os.makedirs("csv", exist_ok=True)
@@ -25,7 +30,7 @@ page_categories = requests.get(url_categories)
 soup_categories = BeautifulSoup(page_categories.content, "html.parser")
 
 print("Je mémorise l'ensemble des catégories à parcourir")
-#On sélcetionne la liste des catégories
+#On sélectionne la liste des catégories
 categories = soup_categories.select(".side_categories > ul > li > ul > li > a")
 
 #On créé une boucle pour récupérer les liens des catégories
@@ -42,7 +47,7 @@ for nom_cat in categories:
     # Dans le dossiers images on créé des sous dossiers pour classer les images téléchargées
     sous_dossier = "images/" + nom_cat_texte
     os.makedirs(sous_dossier, exist_ok=True)
-print("J'ai compté "+str(len(categories))+" catégories, j'ai donc créé un dossier par catégorie pour y ordonner les images.")
+print("J'ai compté "+str(len(categories))+" catégories, j'ai donc créé un dossier par catégorie pour y organiser les images.")
 
 #On demande s'il s'agit d'une démo
 demo = " "
@@ -55,6 +60,7 @@ while demo != "oui" and demo != "non" :
         print("Parfait, je ne vais traiter que les deux premières catégories")
     elif demo == "non" :
         print("Je vais donc réaliser le travail en entier et parcourir les "+str(len(categories))+" catégories.")
+        print("Prenez le temps de vous faire un café, et revenez me voir dans 20 minutes. :-)")
 
 #On créé un dictionnaire avec les catégories et un compteur pour faire le suivi de l'avancement du programme
 suivi = dict(zip(liens, noms))
@@ -135,7 +141,7 @@ for category_url in liens:
         # on trasnforme la liste obtenue en variable simple et on récupère le txt
         product_description_l = soup_livre.select(".product_page > p")
         if product_description_l:
-            product_description.append(product_description_l[0].text.encode("utf-8", errors="replace"))
+            product_description.append(product_description_l[0].text.encode("utf-8", errors="replace").decode("utf-8"))
         else:
             product_description.append(" ")
         # Pour récupérer la catégorie qui se trouve dans le breadcrumbs qu'on va
