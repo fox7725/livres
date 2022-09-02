@@ -24,6 +24,7 @@ url_categories = "https://books.toscrape.com/index.html"
 page_categories = requests.get(url_categories)
 soup_categories = BeautifulSoup(page_categories.content, "html.parser")
 
+print("Je mémorise l'ensemble des catégories à parcourir")
 #On sélcetionne la liste des catégories
 categories = soup_categories.select(".side_categories > ul > li > ul > li > a")
 
@@ -41,6 +42,7 @@ for nom_cat in categories:
     # Dans le dossiers images on créé des sous dossiers pour classer les images téléchargées
     sous_dossier = "images/" + nom_cat_texte
     os.makedirs(sous_dossier, exist_ok=True)
+print("J'ai compté "+str(len(categories))+" catégories,j'ai donc créé un dossier par catégorie pour y ordonner les images.")
 
 #On créé une boucle pour récupérer les liens des livres de chaque page de chaque catégorie
 for category_url in liens:
@@ -85,7 +87,7 @@ for category_url in liens:
         # On récupère les informations demandées dans des variables
         # récupération de l'url de la page
         product_page_url.append(url_livre)
-        # récupération du titre du livre (seul élément en <h1>
+        # récupération du titre du livre (seul élément en <h1>)
         title.append(soup_livre.h1.string)
         # Pour récupérer les éléments en bas de page qui sont sous forme de
         # tableau, on créé deux listes avec les <th> et les <td> et on fait un dictionnaire
@@ -108,7 +110,7 @@ for category_url in liens:
         # on trasnforme la liste obtenue en variable simple et on récupère le txt
         product_description_l = soup_livre.select(".product_page > p")
         if product_description_l:
-            product_description.append(product_description_l[0].text.encode("utf8", errors="replace"))
+            product_description.append(product_description_l[0].text.encode("utf-8", errors="replace"))
         else:
             product_description.append(" ")
         # Pour récupérer la catégorie qui se trouve dans le breadcrumbs qu'on va

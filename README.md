@@ -11,7 +11,7 @@ Pour chaque nouveau projet, il est recommandé d'installer un environnement virt
 - Ouvrez votre Terminal
 - Dans le dossier où vous avez copié les fichiers du projet, tappez la commande `python -m venv env`
 - Puis lancez l'environnement virtuel en tapant `env\Scripts\activate.bat`
-- Pour faire fonctionner le scrapper, vous aurez besoin de quelques packages. Installez les depuis requierement.txt : `pip install -r requirement.txt`
+- Pour faire fonctionner le scrapper, vous aurez besoin de quelques packages. Installez les depuis requierement.txt : `pip install -r requirements.txt`
 
 ## Etape 2 : Lancer le scrapper
 Nous avons presque terminé, il ne vous reste plus qu'à démarrer le script, et pour ça rien de plus simple il vous suffit d'écrire la commande `python main.py`.
