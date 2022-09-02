@@ -42,15 +42,33 @@ for nom_cat in categories:
     # Dans le dossiers images on créé des sous dossiers pour classer les images téléchargées
     sous_dossier = "images/" + nom_cat_texte
     os.makedirs(sous_dossier, exist_ok=True)
-print("J'ai compté "+str(len(categories))+" catégories,j'ai donc créé un dossier par catégorie pour y ordonner les images.")
+print("J'ai compté "+str(len(categories))+" catégories, j'ai donc créé un dossier par catégorie pour y ordonner les images.")
+
+#On de mande s'il s'agit d'une démo
+demo = " "
+while demo!="oui" or demo!="non" :
+    demo = input("Voulez vous juste faire un test rapide ? ('oui' ou 'non')")
+    if demo!="oui" or demo!="non" :
+        print("la réponse '"+str(demo)+"' n'est pas valable ! Merci de répondre par 'oui' ou par 'non'.")
+    elif demo=="oui" :
+        print("Parfait, je ne vais traiter que les trois première catégories")
+    elif demo=="non" :
+        print("Je vais donc réaliser le travail en entier et parcourir les "+str(len(categories))+" catégories.")
 
 #On créé un dictionnaire avec les catégories et un compteur pour faire le suivi de l'avancement du programme
 suivi = dict(zip(liens, noms))
 compteur = len(categories)
+
 #On créé une boucle pour récupérer les liens des livres de chaque page de chaque catégorie
 for category_url in liens:
+
+    #on vérifie s'il s'agit du mode démo
+    if demo=="oui" and compteur==(len(categories)-3) :
+        break
+
+    #maintenant que le mode démo est vérifier on continue le travail
     compteur -= 1
-    print("J'attaque les livres de la catégorie "+suivi[category_url]+". Il restera encore "+str(compteur)+"catégories à traiter.")
+    print("J'attaque les livres de la catégorie '"+suivi[category_url]+"'. Il restera encore "+str(compteur)+" catégories à traiter.")
     page_page = requests.get(category_url)
     soup_page = BeautifulSoup(page_page.content, 'html.parser')
     liste_livres = soup_page.select(".image_container > a")
