@@ -24,4 +24,7 @@ Vous pouvez maintenant aller chercher les fichiers image dans le dossier **"imag
 Vous trouverez le fichier **livres.csv** dans le dossier CSV.
 
 # Remerciements
-Un grand merci à mon mentor **Serigne Fallou Ndiaye** qui a su me guider tout en douceur et à **Zozor** (l'ancienne mascotte du site) de revenir sur **le Site du Zéro** pour apprendre
+Un grand merci à mon mentor **Serigne Fallou Ndiaye** qui a su me guider tout en douceur et à **Zozor** (l'ancienne mascotte du site) qui m'a donné envie de revenir sur **le Site du Zéro** pour apprendre
+
+# Auteur
+Script réalisé par Christophe RENARD
