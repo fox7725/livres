@@ -1,28 +1,26 @@
 import os
 import csv
+import fonctions
 import requests
 from bs4 import BeautifulSoup
 import urllib.request
-
-#On créé les différentes fonctions dont on va avoir besoin
-#def tableCategories (url_categories) :
-
-
+from fonctions import *
 
 #on test l'existence des répertoires pour l'enregistrement du CSV et des images sinon les créer,
 #grace à "exist_ok=True", l'erreur est ignorée si les répertoires existent
 os.makedirs("csv", exist_ok=True)
 os.makedirs("images", exist_ok=True)
 
-#On créé le fichier CSV et on y place l'entête
+#On défini les variables pour la fonction de création du CSV en "write"
 #On place la future entête du CSV dans une liste
 entete = ["product_page_url", "universal_product_code (UPC)", "title", "price_including_tax", "price_excluding_tax", \
           "number_available", "product_description", "category", "review_rating", "image_url"]
+dossier = "csv/livres.csv"
+delimiteur = ","
 
-#On créé un fichier CSV en "write" et on y insère l'entête
-with open("csv/livres.csv", "w") as fichier_csv:
-    writer = csv.writer(fichier_csv, delimiter=",")
-    writer.writerow(entete)
+#On appelle la fonction de manipulation du CSV
+#On créé le fichier CSV et on y place l'entête
+fonctions.CSV_manip(dossier, "w", delimiteur, entete)
 
 #On se connecte à la page d'accueil du site
 url_categories = "https://books.toscrape.com/index.html"
@@ -203,15 +201,16 @@ for category_url in liens:
         categorycsv, \
         review_ratingcsv, \
         image_urlcsv]
-        with open("csv/livres.csv", "a") as fichier_csv:
-            writer = csv.writer(fichier_csv, delimiter=",")
-            writer.writerow(ligne)
 
-            #On télécharge et renomme les images dans le répertoire voulu
-            lien_image = image_urlcsv
-            nom_image = "images/"+product_page_urlcsv.replace("https://books.toscrape.com/catalogue", categorycsv)
-            nom_image = nom_image.replace("/index.html", ".jpg")
-            urllib.request.urlretrieve(lien_image, nom_image)
+        #enregistrement dans le CSV
+        #On ne veut plus modifier le CSV en write (w) mais en add (a)
+        fonctions.CSV_manip(dossier, "a", delimiteur, ligne)
+
+        #On télécharge et renomme les images dans le répertoire voulu
+        lien_image = image_urlcsv
+        nom_image = "images/"+product_page_urlcsv.replace("https://books.toscrape.com/catalogue", categorycsv)
+        nom_image = nom_image.replace("/index.html", ".jpg")
+        urllib.request.urlretrieve(lien_image, nom_image)
 
 #une petite phrase gentille pour indiquer que le travail est terminé
 print("Je sais que c'était long, mais il y avait beaucoup de pages à visiter. Vous pouvez donc maintenant consulter les dossiers csv et images")
