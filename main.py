@@ -207,10 +207,7 @@ for category_url in liens:
         fonctions.CSV_manip(dossier, "a", delimiteur, ligne)
 
         #On télécharge et renomme les images dans le répertoire voulu
-        lien_image = image_urlcsv
-        nom_image = "images/"+product_page_urlcsv.replace("https://books.toscrape.com/catalogue", categorycsv)
-        nom_image = nom_image.replace("/index.html", ".jpg")
-        urllib.request.urlretrieve(lien_image, nom_image)
+        fonctions.recup_image(image_urlcsv, product_page_urlcsv, categorycsv)
 
 #une petite phrase gentille pour indiquer que le travail est terminé
 print("Je sais que c'était long, mais il y avait beaucoup de pages à visiter. Vous pouvez donc maintenant consulter les dossiers csv et images")
