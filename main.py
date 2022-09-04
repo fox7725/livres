@@ -12,20 +12,16 @@ os.makedirs("csv", exist_ok=True)
 os.makedirs("images", exist_ok=True)
 
 #On défini les variables pour la fonction de création du CSV en "write"
-#On place la future entête du CSV dans une liste
+#On appelle la fonction de manipulation du CSV pour créer le fichier et placer l'entête
 entete = ["product_page_url", "universal_product_code (UPC)", "title", "price_including_tax", "price_excluding_tax", \
           "number_available", "product_description", "category", "review_rating", "image_url"]
 dossier = "csv/livres.csv"
 delimiteur = ","
-
-#On appelle la fonction de manipulation du CSV
-#On créé le fichier CSV et on y place l'entête
 fonctions.CSV_manip(dossier, "w", delimiteur, entete)
 
-#On se connecte à la page d'accueil du site
+#On se connecte à la page d'accueil du site avec la fonction lectuSite
 url_categories = "https://books.toscrape.com/index.html"
-page_categories = requests.get(url_categories)
-soup_categories = BeautifulSoup(page_categories.content, "html.parser")
+soup_categories = fonctions.lectureSite(url_categories)
 
 print("Je mémorise l'ensemble des catégories à parcourir")
 #On sélectionne la liste des catégories
@@ -75,8 +71,9 @@ for category_url in liens:
     #maintenant que le mode démo est vérifié on continue le travail
     compteur -= 1
     print("J'attaque les livres de la catégorie '"+suivi[category_url]+"'. Il restera encore "+str(compteur)+" catégories à traiter.")
-    page_page = requests.get(category_url)
-    soup_page = BeautifulSoup(page_page.content, 'html.parser')
+
+    #On se connecte à la première page de la catégorie pour y récupérer la liste des livres
+    soup_page = fonctions.lectureSite(category_url)
     liste_livres = soup_page.select(".image_container > a")
     liste_livres_url = []
     for livre in liste_livres:
@@ -88,9 +85,10 @@ for category_url in liens:
     next_page = soup_page.find("li", class_="next")
     # On créé une boucle pour les pages suivante
     while next_page != None:
+        #On transforme le lien pour qu'il soit utilisable
         next_page_url = category_url.rsplit("/", 1)[0] + "/" + next_page.find("a").get("href")
-        page_page = requests.get(next_page_url)
-        soup_page = BeautifulSoup(page_page.content, 'html.parser')
+        #On se connecte à la page pour récupérer le liste des livres
+        soup_page = fonctions.lectureSite(next_page_url)
         liste_livres = soup_page.select(".image_container > a")
         for livre in liste_livres:
             livre_clean = livre.get("href")
@@ -110,8 +108,8 @@ for category_url in liens:
     category = []
     review_rating = []
     for url_livre in liste_livres_url:
-        page_livre = requests.get(url_livre)
-        soup_livre = BeautifulSoup(page_livre.content, "html.parser")
+        #On se connecte à la page de chaque livre
+        soup_livre = fonctions.lectureSite(url_livre)
 
         # On récupère les informations demandées dans des variables
         # récupération de l'url de la page
@@ -139,6 +137,8 @@ for category_url in liens:
         # on trasnforme la liste obtenue en variable simple et on récupère le txt
         product_description_l = soup_livre.select(".product_page > p")
         if product_description_l:
+            #Certains descriptifs constiennent des caractères spéciaux, alors on encode en UTF-8
+            #puis on décode pour traduire les caractère spéciaux
             product_description.append(product_description_l[0].text.encode("utf-8", errors="replace").decode("utf-8"))
         else:
             product_description.append(" ")
