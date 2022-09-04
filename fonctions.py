@@ -2,9 +2,27 @@ import csv
 import urllib.request
 import requests
 from bs4 import BeautifulSoup
+import os
 
-def tableCategories (url_categories) :
-    print(" ")
+def dictCategories (categories) :
+    #Fonction qui crée un dictionnaire avec noms et liens des catégories
+    # On créé une boucle pour récupérer les liens des catégories
+    liens = []
+    for lien in categories:
+        lien_complet = "https://books.toscrape.com/" + lien.get("href")
+        liens.append(lien_complet)
+
+    # On créé une boucle pour récupérer les noms des catégories
+    noms = []
+    for nom_cat in categories:
+        nom_cat_texte = nom_cat.text.strip()
+        noms.append(nom_cat_texte)
+        # Dans le dossiers images on créé des sous dossiers pour classer les images téléchargées
+        sous_dossier = "images/" + nom_cat_texte
+        os.makedirs(sous_dossier, exist_ok=True)
+
+    # On créé un dictionnaire avec les catégories
+    return dict(zip(liens, noms))
 
 def CSV_manip (dossier, option, delimiteur, ecrire) :
     #Fonction pour manipuler le CSV, soit en write (w) soit en add (a)

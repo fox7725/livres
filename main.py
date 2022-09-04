@@ -24,23 +24,17 @@ url_categories = "https://books.toscrape.com/index.html"
 soup_categories = fonctions.lectureSite(url_categories)
 
 print("Je mémorise l'ensemble des catégories à parcourir")
+
 #On sélectionne la liste des catégories
 categories = soup_categories.select(".side_categories > ul > li > ul > li > a")
 
-#On créé une boucle pour récupérer les liens des catégories
-liens = []
-for lien in categories:
-    lien_complet = "https://books.toscrape.com/" + lien.get("href")
-    liens.append(lien_complet)
+#On récupère les liens et noms des catégories qu'on met dans un dictionnaire
+suivi = fonctions.dictCategories(categories)
+#On récupère les liens des catégories sous forme de liste (les clés dans le dictionnaire créé par la fonction
+liens = list(suivi.keys())
+#On récupère les noms des catégories sous forme de liste (les valeurs dans le dictionnaire créé par la fonction
+noms = list(suivi.values())
 
-#On créé une boucle pour récupérer les noms des catégories
-noms = []
-for nom_cat in categories:
-    nom_cat_texte = nom_cat.text.strip()
-    noms.append(nom_cat_texte)
-    # Dans le dossiers images on créé des sous dossiers pour classer les images téléchargées
-    sous_dossier = "images/" + nom_cat_texte
-    os.makedirs(sous_dossier, exist_ok=True)
 print("J'ai compté "+str(len(categories))+" catégories, j'ai donc créé un dossier par catégorie pour y organiser les images.")
 
 #On demande s'il s'agit d'une démo
@@ -56,8 +50,7 @@ while demo != "oui" and demo != "non" :
         print("Je vais donc réaliser le travail en entier et parcourir les "+str(len(categories))+" catégories.")
         print("Prenez le temps de vous faire un café, et revenez me voir dans 20 minutes. :-)")
 
-#On créé un dictionnaire avec les catégories et un compteur pour faire le suivi de l'avancement du programme
-suivi = dict(zip(liens, noms))
+#Initialisation du compteur pour suivre l'avancement
 compteur = len(categories)
 
 #On créé une boucle pour récupérer les liens des livres de chaque page de chaque catégorie
