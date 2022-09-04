@@ -41,3 +41,6 @@ def recup_image (lien_image, page_produitCSV, categoriecsv) :
     nom_image = "images/" + page_produitCSV.replace("https://books.toscrape.com/catalogue", categoriecsv)
     nom_image = nom_image.replace("/index.html", ".jpg")
     urllib.request.urlretrieve(lien_image, nom_image)
+
+if __name__ == "__main__":
+    print("Vous êtes dans le fichier de fonctions. merci de lancer main.py")
