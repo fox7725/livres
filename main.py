@@ -182,9 +182,9 @@ for category_url in liens:
         category, \
         review_rating, \
         image_url) :
-        titrecsv2 = titlecsv.replace(",", " ")
 
-        # pour éviter les erreurs CSV on remplace les "," des titres par " " et ";" par "-"
+        # pour éviter les erreurs CSV on remplace les "," des titres et descriptions par " " et ";" par "-"
+        titrecsv2 = titlecsv.replace(",", " ")
         product_descriptioncsv2 = product_descriptioncsv.replace(",", " ")
         product_descriptioncsv2 = product_descriptioncsv2.replace(";", "-")
 
