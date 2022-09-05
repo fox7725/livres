@@ -162,7 +162,6 @@ for category_url in liens:
             review_rating.append("5 stars")
 
         # On rempli le fichier ligne par ligne avec une boucle,
-        # pour éviter les erreurs CSV on remplace les "," des titres par " "
     for product_page_urlcsv, \
         universal_product_codecsv, \
         titlecsv, \
@@ -184,13 +183,18 @@ for category_url in liens:
         review_rating, \
         image_url) :
         titrecsv2 = titlecsv.replace(",", " ")
+
+        # pour éviter les erreurs CSV on remplace les "," des titres par " " et ";" par "-"
+        product_descriptioncsv2 = product_descriptioncsv.replace(",", " ")
+        product_descriptioncsv2 = product_descriptioncsv2.replace(";", "-")
+
         ligne = [product_page_urlcsv, \
         universal_product_codecsv, \
         titrecsv2, \
         price_including_taxcsv, \
         price_excluding_taxcsv, \
         number_availablecsv, \
-        product_descriptioncsv, \
+        product_descriptioncsv2, \
         categorycsv, \
         review_ratingcsv, \
         image_urlcsv]
