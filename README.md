@@ -7,6 +7,8 @@ Ce script Python récupère différentes informations sur l'ensemble des livres 
 
 # Comment utiliser le fichier python
 ## Etape 1 : Créer votre environnement virtuel :
+**Attention, les commande ci dessous fonctionnent sous windows 11, elles n'ont pas été testées sous d'autres systèmes d'exploitation**
+
 Pour chaque nouveau projet, il est recommandé d'installer un environnement virtuel pour partir sur de nouvelles bases
 - Ouvrez votre Terminal
 - Dans le dossier où vous avez copié les fichiers du projet, tapez la commande `python -m venv env`

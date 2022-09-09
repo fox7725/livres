@@ -4,7 +4,6 @@ import fonctions
 import requests
 from bs4 import BeautifulSoup
 import urllib.request
-from fonctions import *
 
 #on test l'existence des répertoires pour l'enregistrement du CSV et des images sinon les créer,
 #grace à "exist_ok=True", l'erreur est ignorée si les répertoires existent
