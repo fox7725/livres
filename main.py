@@ -126,12 +126,10 @@ for category_url in liens:
         price_excluding_tax.append(dictionnaire_tableau["Price (excl. tax)"])
         number_available.append(dictionnaire_tableau["Availability"])
         # pour la description, on récupère le texte enfant de la classe product_page
-        # on trasnforme la liste obtenue en variable simple et on récupère le txt
+        # on trasnforme la liste obtenue en variable simple et on récupère le texte
         product_description_l = soup_livre.select(".product_page > p")
         if product_description_l:
-            #Certains descriptifs constiennent des caractères spéciaux, alors on encode en UTF-8
-            #puis on décode pour traduire les caractère spéciaux
-            product_description.append(product_description_l[0].text.encode("utf-8", errors="replace").decode("utf-8"))
+            product_description.append(product_description_l[0].text)
         else:
             product_description.append(" ")
         # Pour récupérer la catégorie qui se trouve dans le breadcrumbs qu'on va

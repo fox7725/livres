@@ -26,7 +26,7 @@ def dictCategories (categories) :
 
 def CSV_manip (dossier, option, delimiteur, ecrire) :
     #Fonction pour manipuler le CSV, soit en write (w) soit en add (a)
-    with open(dossier, option) as fichier_csv:
+    with open(dossier, option, encoding="utf-8-sig") as fichier_csv:
         writer = csv.writer(fichier_csv, delimiter=delimiteur)
         writer.writerow(ecrire)
 
